@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  # mongo:
+  #   image: mongo:3.6.23
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=root
+  #     - MONGO_INITDB_ROOT_PASSWORD=password
+  #   ports:
+  #     - "27017:27017"
+  # mongo-express:
+  #   image: mongo-express
+  #   ports:
+  #    - "8081:8081"
+  #   environment:
+  #     - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+  #     - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+  #     - ME_CONFIG_MONGODB_URL=mongodb://root:password@mongo:27017/
+  #   depends_on:
+  #     - "mongo"
+  angular:
+    build: ./angular
+    command: >
+      sh -c "npm start"
+    volumes:
+      - ./angular:/angular
+    ports:
+      - "4400:4400"
+      - "4300:4300"
+      - "4200:4200"
+  api:
+    build: ./api
+    command: >
+      sh -c "yarn --ignore-platform --ignore-engines &&
+             npm start"
+    env_file:
+      - mongo.env
+    depends_on:
+      - "mongo"
+    volumes:
+      - ./api:/api
+    ports:
+      - "3000:3000"

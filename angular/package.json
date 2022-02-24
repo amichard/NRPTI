@@ -4,9 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "npm-run-all -l -p -c start:*",
-    "start:admin-nrpti": "ng serve admin-nrpti -o",
-    "start:public-nrced": "ng serve public-nrced -o",
-    "start:public-lng": "ng serve public-lng -o",
+    "start:admin-nrpti": "ng serve admin-nrpti -o --host 0.0.0.0",
+    "start:public-nrced": "ng serve public-nrced -o --host 0.0.0.0",
+    "start:public-lng": "ng serve public-lng -o --host 0.0.0.0",
     "build": "npm-run-all -l -s -c build:library library:link build:app:*",
     "build:prod": "npm-run-all -l -s -c lint clean:* build:app:*",
     "build:app:common": "ng build common --prod",
